@@ -9,11 +9,11 @@ HAUTEUR = 400 #Car il y a 4 lignes et chaque ligne fait 100px
 mouvement = 0 #Défini une fois fini le nombre de mouvement effectué pour gagné.
 ###################
 # Fonctions
+
 def identification(event):
     i=event.y//100
     j=event.x//100
     print("ligne :", i, "colonne :", j,"Tuile n° :", taquin[i][j])
-
 
 ######################
 # programme principal
@@ -40,12 +40,12 @@ for i in range(4):
     for j in range(4):
         x, y=100*j, 100*i
         A, B, C=(x, y), (x+100, y+100), (x+50, y+50)
-        rect=canvas.create_rectangle(A, B, fill="red")
+        oval=canvas.create_oval(A, B, fill="red")
         numero=taquin[i][j]
-        txt=canvas.create_text(C, text=numero, fill="black", font=FONT)
-        tuile[numero]=(rect, txt)
-canvas.delete(rect)
-canvas.delete(txt)
+        chiffre=canvas.create_text(C, text=numero, fill="black", font=FONT)
+        tuile[numero]=(oval, chiffre)
+canvas.delete(oval)
+canvas.delete(chiffre)
 
 
 taquin_victoire=[[1, 2, 3, 4],
