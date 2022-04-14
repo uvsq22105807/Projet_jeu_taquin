@@ -6,10 +6,13 @@ from random import randint #choisir un nombre aléatoirement
 
 LARGEUR = 400 #Car chaque ligne a 4 cases de 100px chacune
 HAUTEUR = 400 #Car il y a 4 lignes et chaque ligne fait 100px
-
+mouvement = 0 #Défini une fois fini le nombre de mouvement effectué pour gagné.
 ###################
 # Fonctions
-FONT=('Ubuntu', 27, 'bold')
+def identification(event):
+    i=event.y//100
+    j=event.x//100
+    print("ligne :", i, "colonne :", j,"Tuile n° :", taquin[i][j])
 
 
 ######################
@@ -19,31 +22,38 @@ FONT=('Ubuntu', 27, 'bold')
 racine = tk.Tk()
 canvas = tk.Canvas(racine, bg="black", width=LARGEUR, height=HAUTEUR)
 racine.title("Jeu du Taquin")
-canvas.bind("<Button-1>")
-canvas.pack()
-
 
 
 # création des tuiles
+FONT=('Arial', 30, 'bold')
 
-tuile_1 = canvas.create_rectangle(0, 0, 100, 100, fill ="red"), canvas.create_text(50, 50,text="1", fill ="Black", font = FONT) 
-tuile_2 = canvas.create_rectangle(100, 0, 200, 100, fill ="red"), canvas.create_text(150, 50,text="2", fill ="Black", font = FONT) 
-tuile_3 = canvas.create_rectangle(200, 0, 300, 100, fill ="red"), canvas.create_text(250, 50,text="3", fill ="Black", font = FONT) 
-tuile_4 = canvas.create_rectangle(300, 0, 400, 100, fill ="red"), canvas.create_text(350, 50,text="4", fill ="Black", font = FONT) 
-tuile_5 = canvas.create_rectangle(0, 100, 100, 200, fill ="red"), canvas.create_text(50, 150,text="5", fill ="Black", font = FONT) 
-tuile_6 = canvas.create_rectangle(100, 100, 200, 200, fill ="red"), canvas.create_text(150, 150,text="6", fill ="Black", font = FONT) 
-tuile_7 = canvas.create_rectangle(200, 100, 300, 200, fill ="red"), canvas.create_text(250, 150,text="7", fill ="Black", font = FONT)
-tuile_8 = canvas.create_rectangle(300, 100, 400, 200, fill ="red"), canvas.create_text(350, 150,text="8", fill ="Black", font = FONT) 
-tuile_9 = canvas.create_rectangle(0, 200, 100, 300, fill ="red"), canvas.create_text(50, 250,text="9", fill ="Black", font = FONT) 
-tuile_10 = canvas.create_rectangle(100, 200, 200, 300, fill ="red"), canvas.create_text(150, 250,text="10", fill ="Black", font = FONT) 
-tuile_11 = canvas.create_rectangle(200, 200, 300, 300, fill ="red"), canvas.create_text(250, 250,text="11", fill ="Black", font = FONT) 
-tuile_12 = canvas.create_rectangle(300, 200, 400, 300, fill ="red"), canvas.create_text(350, 250,text="12", fill ="Black", font = FONT) 
-tuile_13 = canvas.create_rectangle(0, 300, 100, 400, fill ="red"), canvas.create_text(50, 350,text="13", fill ="Black", font = FONT) 
-tuile_14 = canvas.create_rectangle(100, 300, 200, 400, fill ="red"), canvas.create_text(150, 350,text="14", fill ="Black", font = FONT)
-tuile_15 = canvas.create_rectangle(200, 300, 300, 400, fill ="red"), canvas.create_text(250, 350,text="15", fill ="Black", font = FONT) 
+taquin=[[1, 2, 3, 4],
+       [5, 6, 7, 8],
+       [9, 10, 11, 12],
+       [13, 14, 15, 16]]
+
+canvas.bind("<Button-1>",identification)
+
+tuile=[None for i in range(17)]
+
+for i in range(4):
+    for j in range(4):
+        x, y=100*j, 100*i
+        A, B, C=(x, y), (x+100, y+100), (x+50, y+50)
+        rect=canvas.create_rectangle(A, B, fill="red")
+        numero=taquin[i][j]
+        txt=canvas.create_text(C, text=numero, fill="black", font=FONT)
+        tuile[numero]=(rect, txt)
+canvas.delete(rect)
+canvas.delete(txt)
 
 
+taquin_victoire=[[1, 2, 3, 4],
+                [5, 6, 7, 8],
+                [9, 10, 11, 12],
+                [13, 14, 15, 16]]
 
+canvas.pack()
 # déplacement des tuiles
 
 
