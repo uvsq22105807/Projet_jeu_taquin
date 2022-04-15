@@ -15,6 +15,23 @@ def identification(event):
     j=event.x//100
     print("ligne :", i, "colonne :", j,"Tuile n° :", taquin[i][j])
 
+def fermer_fenetre():
+    pass
+
+def charger_fenetre():
+    pass
+
+def melanger():
+    pass
+
+def sauvegarde():
+    pass
+
+def retour():
+    pass
+
+def aide():
+    pass
 ######################
 # programme principal
 
@@ -23,12 +40,12 @@ racine = tk.Tk()
 canvas = tk.Canvas(racine, bg="black", width=LARGEUR, height=HAUTEUR)
 racine.title("Jeu du Taquin")
 
-bouton_fermer = tk.Button(racine, text="Fermer") #command=fermer_fenetre)
-bouton_charger = tk.Button(racine, text="Charger une partie") #command=charger_fenetre)
-bouton_melanger = tk.Button(racine, text="Melanger")#command=filtre_vert)
-bouton_sauvegarder= tk.Button(racine, text="Sauvegarder la partie ")#command=negatif)
-bouton_retour = tk.Button(racine, text="Annuler Mouvement")#command=retour)
-bouton_aide = tk.Button(racine, text="Aide") #command=symetrique)
+bouton_fermer = tk.Button(racine, text="Fermer", command=fermer_fenetre)
+bouton_charger = tk.Button(racine, text="Charger une partie", command=charger_fenetre)
+bouton_melanger = tk.Button(racine, text="Melanger", command=melanger)
+bouton_sauvegarder= tk.Button(racine, text="Sauvegarder la partie ",command=sauvegarde)
+bouton_retour = tk.Button(racine, text="Annuler Mouvement",command=retour)
+bouton_aide = tk.Button(racine, text="Aide",command=aide)
 
 #Positionnement des Widgets
 bouton_fermer.grid(row=7, column = 0)
