@@ -31,7 +31,7 @@ bouton_retour = tk.Button(racine, text="Annuler Mouvement")#command=retour)
 bouton_aide = tk.Button(racine, text="Aide") #command=symetrique)
 
 #Positionnement des Widgets
-bouton_fermer.grid(row=7, column=0)
+bouton_fermer.grid(column=1, row=1, sticky="nswe")
 bouton_charger.grid(row=7, column=1)
 bouton_melanger.grid(row=7, column=2)
 bouton_sauvegarder.grid(row=7, column=3)
