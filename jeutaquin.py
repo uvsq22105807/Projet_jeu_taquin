@@ -13,12 +13,12 @@ mouvement = 0 #Défini une fois fini le nombre de mouvement effectué pour gagn�
 def identification(event):
     i=event.y//100
     j=event.x//100
-    print("ligne :", i, "colonne :", j,"Tuile n° :", taquin[i][j])
+    print("Ligne :", i, "Colonne :", j,"Tuile n° :", taquin[i][j])
 
-def fermer_fenetre():
+def fermer_partie():
     racine.destroy()
 
-def charger_fenetre():
+def charger_partie():
     pass
 
 def melanger():
@@ -28,6 +28,7 @@ def sauvegarde():
     pass
 
 def retour():
+    mouvement = mouvement - 1
     pass
 
 def aide():
@@ -40,11 +41,11 @@ racine = tk.Tk()
 canvas = tk.Canvas(racine, bg="black", width=LARGEUR, height=HAUTEUR)
 racine.title("Jeu du Taquin")
 
-bouton_fermer = tk.Button(racine, text="Fermer",command=fermer_fenetre)
-bouton_charger = tk.Button(racine, text="Charger une partie",command=charger_fenetre)
+bouton_fermer = tk.Button(racine, text="Fermer",command=fermer_partie)
+bouton_charger = tk.Button(racine, text="Charger",command=charger_partie)
 bouton_melanger = tk.Button(racine, text="Melanger",command=melanger)
-bouton_sauvegarder= tk.Button(racine, text="Sauvegarder la partie ",command=sauvegarde)
-bouton_retour = tk.Button(racine, text="Annuler Mouvement",command=retour)
+bouton_sauvegarder= tk.Button(racine, text="Sauvegarder",command=sauvegarde)
+bouton_retour = tk.Button(racine, text="Annuler mouvement",command=retour)
 bouton_aide = tk.Button(racine, text="Aide",command=aide)
 
 #Positionnement des Widgets
@@ -55,7 +56,7 @@ bouton_sauvegarder.grid(row=7, column=3)
 bouton_retour.grid(row=7, column=4)
 bouton_aide.grid(row=7, column =5)
 
-canvas.grid(row = 0, column = 0, rowspan = 5, columnspan = 5)
+canvas.grid(row = 0, column = 0, rowspan = 5, columnspan = 6)
 
 # création des tuiles
 FONT=('Arial', 30, 'bold')
@@ -88,7 +89,8 @@ taquin_victoire=[[1, 2, 3, 4],
 
 canvas.grid()
 # déplacement des tuiles
-
+def mouvement():
+    pass
 
 # boucle principale
 racine.mainloop()
