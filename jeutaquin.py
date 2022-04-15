@@ -55,11 +55,11 @@ for i in range(4):
     for j in range(4):
         x, y=100*j, 100*i
         A, B, C=(x, y), (x+100, y+100), (x+50, y+50)
-        oval=canvas.create_oval(A, B, fill="red")
+        carre=canvas.create_rectangle(A, B, fill="red")
         numero=taquin[i][j]
         chiffre=canvas.create_text(C, text=numero, fill="black", font=FONT)
-        tuile[numero]=(oval, chiffre)
-canvas.delete(oval)
+        tuile[numero]=(carre, chiffre)
+canvas.delete(carre)
 canvas.delete(chiffre)
 
 
