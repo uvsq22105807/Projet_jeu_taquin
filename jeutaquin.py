@@ -88,7 +88,7 @@ taquin_victoire=[[1, 2, 3, 4],
                 [9, 10, 11, 12],
                 [13, 14, 15, 16]]
 
-canvas.pack()
+canvas.grid()
 # déplacement des tuiles
 
 
