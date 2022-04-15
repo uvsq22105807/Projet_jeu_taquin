@@ -20,8 +20,8 @@ def identification(event):
 
 # création des widgets
 racine = tk.Tk()
-racine.title("Jeu du Taquin")
 canvas = tk.Canvas(racine, bg="black", width=LARGEUR, height=HAUTEUR)
+racine.title("Jeu du Taquin")
 
 bouton_fermer = tk.Button(racine, text="Fermer") #command=fermer_fenetre)
 bouton_charger = tk.Button(racine, text="Charger une partie") #command=charger_fenetre)
@@ -31,12 +31,12 @@ bouton_retour = tk.Button(racine, text="Annuler Mouvement")#command=retour)
 bouton_aide = tk.Button(racine, text="Aide") #command=symetrique)
 
 #Positionnement des Widgets
-bouton_fermer.grid(row=7, column=0)
-bouton_charger.grid(row=7, column=1)
-bouton_melanger.grid(row=7, column=2)
-bouton_sauvegarder.grid(row=7, column=3)
-bouton_retour.grid(row=7, column=4)
-bouton_aide.grid(row=7, column =5 )
+bouton_fermer.pack(side = "bottom")
+bouton_charger.pack(side = "bottom")
+bouton_melanger.pack(side = "bottom")
+bouton_sauvegarder.pack(side = "bottom")
+bouton_retour.pack(side = "bottom")
+bouton_aide.pack(side = "bottom")
 
 
 # création des tuiles
@@ -68,7 +68,7 @@ taquin_victoire=[[1, 2, 3, 4],
                 [9, 10, 11, 12],
                 [13, 14, 15, 16]]
 
-
+canvas.pack()
 # déplacement des tuiles
 
 
