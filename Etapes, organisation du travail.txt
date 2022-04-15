@@ -1,5 +1,5 @@
-1) Creer une grille avec les 15 pieces
-2) Creer les mouvements
+1) Creer une grille avec les 15 pieces réussi
+2) Creer les mouvements en cours
 3) Bouton mélanger
 4) Determiner fin du jeu, victoire
 5) Savoir si on peu finir le jeu (bouton aide)
