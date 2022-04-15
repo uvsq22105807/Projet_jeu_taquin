@@ -1,9 +1,15 @@
 # Projet_jeu_taquin
 2eme projet d'IN200
 
+#########################################
+# groupe MI-TDO3
+# GONCALVES TEIXEIRA João
+# BEDEL Lucas   
+# MOUS Halima
+# https://github.com/uvsq22105807/Projet_jeu_taquin
+#########################################
 
-
-
+Deuxième projet d'IN200 visant à coder le fameux jeu du taquin. Projet en colaboration avec: BEDEL Lucas- MOUS Halima - GONCALVES TEIXEIRA João (Hébergeur du répertoire GitHub)
 
 
 ## C'est Quoi Taquin ?
