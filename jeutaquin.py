@@ -48,12 +48,12 @@ bouton_retour = tk.Button(racine, text="Annuler Mouvement",command=retour)
 bouton_aide = tk.Button(racine, text="Aide",command=aide)
 
 #Positionnement des Widgets
-bouton_fermer.grid(row=7, column = 0)
-bouton_charger.grid(row=7, column=1)
-bouton_melanger.grid(row=7, column=2)
-bouton_sauvegarder.grid(row=7, column=3)
-bouton_retour.grid(row=7, column=4)
-bouton_aide.grid(row=7, column =5)
+bouton_fermer.grid(row=10, column = 0,expand=1)
+bouton_charger.grid(row=8, column=1)
+bouton_melanger.grid(row=9, column=0, fill="x")
+bouton_sauvegarder.grid(row=8, column=0)
+bouton_retour.grid(row=7, column=1)
+bouton_aide.grid(row=8, column =2)
 
 canvas.grid(row = 0, column = 0, rowspan = 5, columnspan = 5)
 
