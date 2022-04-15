@@ -16,7 +16,7 @@ def identification(event):
     print("ligne :", i, "colonne :", j,"Tuile n° :", taquin[i][j])
 
 def fermer_fenetre():
-    pass
+    racine.destroy()
 
 def charger_fenetre():
     pass
