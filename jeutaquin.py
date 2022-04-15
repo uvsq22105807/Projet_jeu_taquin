@@ -31,13 +31,14 @@ bouton_retour = tk.Button(racine, text="Annuler Mouvement")#command=retour)
 bouton_aide = tk.Button(racine, text="Aide") #command=symetrique)
 
 #Positionnement des Widgets
-bouton_fermer.grid(column=1, row=1, sticky="nswe")
+bouton_fermer.grid(row=7, column = 0)
 bouton_charger.grid(row=7, column=1)
 bouton_melanger.grid(row=7, column=2)
 bouton_sauvegarder.grid(row=7, column=3)
 bouton_retour.grid(row=7, column=4)
-bouton_aide.grid(row=7, column =5 )
+bouton_aide.grid(row=7, column =5)
 
+canvas.grid(row = 0, column = 0, rowspan = 5, columnspan = 5)
 
 # création des tuiles
 FONT=('Arial', 30, 'bold')
@@ -55,7 +56,7 @@ for i in range(4):
     for j in range(4):
         x, y=100*j, 100*i
         A, B, C=(x, y), (x+100, y+100), (x+50, y+50)
-        carre=canvas.create_rectangle(A, B, fill="red")
+        carre=canvas.create_rectangle(A, B, fill="gold")
         numero=taquin[i][j]
         chiffre=canvas.create_text(C, text=numero, fill="black", font=FONT)
         tuile[numero]=(carre, chiffre)
