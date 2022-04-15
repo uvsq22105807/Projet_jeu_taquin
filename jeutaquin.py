@@ -23,12 +23,20 @@ racine = tk.Tk()
 racine.title("Jeu du Taquin")
 canvas = tk.Canvas(racine, bg="black", width=LARGEUR, height=HAUTEUR)
 
-bouton_fermer = tk.Button(racine, text="Fermer", #command=fermer_fenetre)
-bouton_charger = tk.Button(racine, text="Charger une partie", #command=charger_fenetre)
-bouton_melanger = tk.Button(racine, text="Melanger", #command=filtre_vert)
-bouton_sauvegarder= tk.Button(racine, text="Sauvegarder la partie ",# command=negatif)
-bouton_retour = tk.Button(racine, text="Annuler Mouvement", #command=retour)
-bouton_aide = tk.Button(racine, text="Aide", #command=symetrique)
+bouton_fermer = tk.Button(racine, text="Fermer") #command=fermer_fenetre)
+bouton_charger = tk.Button(racine, text="Charger une partie") #command=charger_fenetre)
+bouton_melanger = tk.Button(racine, text="Melanger")#command=filtre_vert)
+bouton_sauvegarder= tk.Button(racine, text="Sauvegarder la partie ")#command=negatif)
+bouton_retour = tk.Button(racine, text="Annuler Mouvement")#command=retour)
+bouton_aide = tk.Button(racine, text="Aide") #command=symetrique)
+
+#Positionnement des Widgets
+bouton_fermer.grid(row=7, column=0)
+bouton_charger.grid(row=7, column=1)
+bouton_melanger.grid(row=7, column=2)
+bouton_sauvegarder.grid(row=7, column=3)
+bouton_retour.grid(row=7, column=4)
+bouton_aide.grid(row=7, column =5 )
 
 
 # création des tuiles
@@ -60,7 +68,7 @@ taquin_victoire=[[1, 2, 3, 4],
                 [9, 10, 11, 12],
                 [13, 14, 15, 16]]
 
-canvas.pack()
+
 # déplacement des tuiles
 
 
