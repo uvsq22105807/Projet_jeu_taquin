@@ -1,7 +1,7 @@
 from re import X
 import tkinter as tk  #librairie Tkinter
-from random import randint
-from turtle import width #choisir un nombre aléatoirement
+from random import randint #choisir un nombre aléatoirement
+from turtle import width 
 
 ##################
 # Constantes
@@ -51,15 +51,14 @@ bouton_retour = tk.Button(racine, text="Annuler mouvement",command=retour)
 bouton_aide = tk.Button(racine, text="Aide",command=aide)
 
 #Positionnement des Widgets
-bouton_fermer.grid(row=10, column = 0, pady=2, padx=2)
-bouton_fermer.config()
-bouton_charger.grid(row=7, column=1, pady=2, padx=2)
-bouton_melanger.grid(row=9, column=0, pady=2, padx=2)
-bouton_sauvegarder.grid(row=7, column=0, pady=2, padx=2)
-bouton_retour.grid(row=8, column=0, pady=2, padx=2)
-bouton_aide.grid(row=8, column =1, pady=2, padx=2)
+bouton_sauvegarder.grid(row=7, column=0, pady=2, padx=2,sticky=tk.W+tk.E, columnspan=1)
+bouton_charger.grid(row=7, column=1, pady=2, padx=2,sticky=tk.W+tk.E, columnspan=1)
+bouton_retour.grid(row=8, column=0, pady=2, padx=2,sticky=tk.W+tk.E, columnspan=1)
+bouton_aide.grid(row=8, column =1, pady=2, padx=2, sticky=tk.W+tk.E, columnspan=1)
+bouton_fermer.grid(row=10, column = 0, pady=2, padx=2, columnspan=2, sticky=tk.W+tk.E)
+bouton_melanger.grid(row=9, column=0, pady=2, padx=2, columnspan=2,sticky=tk.W+tk.E)
 
-canvas.grid(row = 0, column = 0, rowspan = 6, columnspan = 4)
+canvas.grid(row = 0, column = 0, columnspan=2, sticky=tk.W+tk.E) #Tout le tableau de jeu est considéré comme une seule colonne, on doit alors l'étendre sur 2 colonnes pour pouvoir aligner les boutons en bas.
 
 # création des tuiles
 FONT=('Arial', 30, 'bold')
