@@ -2,19 +2,21 @@ import tkinter as tk  #librairie Tkinter
 from random import randint #choisir un nombre aléatoirement
 from turtle import width 
 
-##################
+###############################################################################################
 # Constantes
 
 LARGEUR = 400 #Car chaque ligne a 4 cases de 100px chacune
 HAUTEUR = 400 #Car il y a 4 lignes et chaque ligne fait 100px
-mouvement = 0 #Défini une fois fini le nombre de mouvement effectué pour gagné.
-###################
+mouvement = 0 #Défini, une fois fini, le nombre de mouvement effectué pour gagner.
+
+###############################################################################################
+
 # Fonctions
 
 def identification(event):
-    i=event.y//100
-    j=event.x//100
-    print("Ligne :", i, "Colonne :", j,"Tuile n° :", taquin[i][j])
+    i=event.y//100 #On prends la cordonnée x et on divise par 100(taille de chaque tuile) on aura forcément un nombre compris entre 0 et 3
+    j=event.x//100 #On prends la cordonnée y et on divise par 100(taille de chaque tuile) on aura forcément un nombre compris entre 0 et 3
+    print("Ligne :", i, "Colonne :", j,"Tuile n° :", taquin[i][j]) #On va verifier dans taquin à quel numero ça correspond.
 
 def fermer_partie():
     racine.destroy()
@@ -23,7 +25,10 @@ def charger_partie():
     pass
 
 def melanger():
-    pass
+    numeros=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
+    for i in range(4):
+        for j in range(4):
+            pass
 
 def sauvegarde():
     pass
@@ -34,7 +39,10 @@ def annuler():
 
 def aide():
     pass
-######################
+
+
+###############################################################################################
+
 # programme principal
 
 # création des widgets
@@ -61,12 +69,16 @@ canvas.grid(row = 0, column = 0, columnspan=2, sticky=tk.W+tk.E) #Tout le tablea
 racine.columnconfigure(1, minsize=200) #permet au canvas d'être centré avec les boutons
 racine.columnconfigure(0, minsize=200) #permet au canvas d'être centré avec les boutons
 
-# création des tuiles
+###############################################################################################
 POLICE=('Arial', 30, 'bold')
+
+# création des tuiles
+
 taquin=[[1, 2, 3, 4],
        [5, 6, 7, 8],
        [9, 10, 11, 12],
        [13, 14, 15, 16]]
+ #Les numeros sur les tuiles suivront cette matrice.
 
 canvas.bind("<Button-1>",identification)
 
@@ -88,15 +100,18 @@ canvas.delete(carre) #permet de supprimer le dernier carré, le numero 16 dont n
 canvas.delete(chiffre) #permet de supprimer le dernier carré, le numero 16 dont nous avons pas besoin
 
 
+#On gagne quand on arrivé au resultat ci-dessous.
 taquin_victoire=[[1, 2, 3, 4],
                 [5, 6, 7, 8],
                 [9, 10, 11, 12],
                 [13, 14, 15, 16]]
 
+###############################################################################################
 
 # déplacement des tuiles
 def mouvement():
     pass
+
 
 # boucle principale
 racine.mainloop()
