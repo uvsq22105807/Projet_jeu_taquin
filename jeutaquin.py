@@ -1,5 +1,6 @@
 import tkinter as tk  #librairie Tkinter
 import random #choisir un nombre aléatoirement
+from tkinter import messagebox #Ouvrir une pop-up avec une information
 from turtle import width 
 
 
@@ -22,10 +23,6 @@ def identification(event):
 def fermer_partie():
     racine.destroy()
 
-def charger_partie():
-    pass
-
-
 def melanger():
     """numeros=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
     global taquin
@@ -41,6 +38,18 @@ def sauvegarde():
         for j in range(4):
             fic.write(str(taquin[i][j]) + "\n")
     fic.close()
+    messagebox.showinfo("Sauvegarde", "Sauvegarde réussie.") 
+
+def charger_partie():
+    fic=open("sauvegarde.txt", "r")
+    for ligne in fic:
+        taquin[i][j]= int(ligne)
+        j=j+1
+        if j==3:
+            j=0
+            i=i+1
+    pass
+
 
 def annuler():
     mouvement = mouvement - 1
@@ -60,9 +69,9 @@ canvas = tk.Canvas(racine, bg="black", width=LARGEUR, height=HAUTEUR)
 racine.title("Jeu du Taquin")
 
 bouton_fermer = tk.Button(racine, text="Fermer",command=fermer_partie)
-bouton_charger = tk.Button(racine, text="Charger",command=charger_partie)
 bouton_melanger = tk.Button(racine, text="Melanger",command=melanger)
-bouton_sauvegarder= tk.Button(racine, text="Sauvegarder",command=sauvegarde)
+bouton_sauvegarder= tk.Button(racine, text="Sauvegarder", command=sauvegarde)
+bouton_charger = tk.Button(racine, text="Charger",command=charger_partie)
 bouton_annuler = tk.Button(racine, text="Annuler mouvement",command=annuler)
 bouton_aide = tk.Button(racine, text="Aide",command=aide)
 
