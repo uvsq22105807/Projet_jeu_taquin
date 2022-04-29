@@ -1,7 +1,7 @@
 import tkinter as tk  #librairie Tkinter
-from random import randint #choisir un nombre aléatoirement
+import random #choisir un nombre aléatoirement
 from turtle import width 
-import random
+
 
 ###############################################################################################
 # Constantes
@@ -34,15 +34,12 @@ def melanger():
             x=random.randint(1,len(numeros))
                 taquin[i][j]=numeros[x]
                 del numeros[x]"""
-            
- 
 
 def sauvegarde():
     fic=open("sauvegarde.txt", "w")
     for i in range(4):
         for j in range(4):
-            fic.write(str(taquin[i][j]))
-    fic.
+            fic.write(str(taquin[i][j]) + "\n")
     fic.close()
 
 def annuler():
