@@ -2,7 +2,7 @@
 2eme projet d'IN200
 
 #########################################
-# groupe MI-TDO3
+# Groupe MI-TDO3
 # GONCALVES TEIXEIRA João
 # BEDEL Lucas   
 # MOUS Halima
