@@ -1,6 +1,7 @@
 import tkinter as tk  #librairie Tkinter
 from random import randint #choisir un nombre aléatoirement
 from turtle import width 
+import random
 
 ###############################################################################################
 # Constantes
@@ -24,14 +25,25 @@ def fermer_partie():
 def charger_partie():
     pass
 
+
 def melanger():
-    numeros=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
+    """numeros=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
+    global taquin
     for i in range(4):
         for j in range(4):
-            pass
+            x=random.randint(1,len(numeros))
+                taquin[i][j]=numeros[x]
+                del numeros[x]"""
+            
+ 
 
 def sauvegarde():
-    pass
+    fic=open("sauvegarde.txt", "w")
+    for i in range(4):
+        for j in range(4):
+            fic.write(str(taquin[i][j]))
+    fic.
+    fic.close()
 
 def annuler():
     mouvement = mouvement - 1
