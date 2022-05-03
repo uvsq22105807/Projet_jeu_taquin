@@ -3,13 +3,13 @@ import random #choisir un nombre aléatoirement
 from tkinter import messagebox #Ouvrir une pop-up avec une information
 from turtle import width 
 
-
 ###############################################################################################
-# Constantes
 
-LARGEUR = 400 #Car chaque ligne a 4 cases de 100px chacune
-HAUTEUR = 400 #Car il y a 4 lignes et chaque ligne fait 100px
-mouvement = 0 #Défini, une fois fini, le nombre de mouvement effectué pour gagner.
+# Constantes
+LARGEUR = 400 # Car chaque ligne a 4 cases de 100px chacune
+HAUTEUR = 400 # Car il y a 4 lignes et chaque ligne fait 100px
+mouvement = 0 # Défini, une fois fini, le nombre de mouvement effectué pour gagner.
+POLICE=('Arial', 30, 'bold') #Police d'écriture pour tout le jeu
 
 ###############################################################################################
 
@@ -24,13 +24,19 @@ def fermer_partie():
     racine.destroy()
 
 def melanger():
-    """numeros=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
+    numeros=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
     global taquin
-    for i in range(4):
+    for i in range(3): #Melange les 4 colonnes des 3 premières lignes de la matrice
         for j in range(4):
-            x=random.randint(1,len(numeros))
-                taquin[i][j]=numeros[x]
-                del numeros[x]"""
+            x=random.randint(0,len(numeros)-1)
+            taquin[i][j]=numeros[x]
+            del numeros[x]
+    for j in range(3): #Melange les 3 colonnes de la dernière ligne de la matrice, car la toute derniere case est vide.
+        x=random.randint(0,len(numeros)-1)
+        taquin[3][j]=numeros[x]
+        del numeros[x]
+    tableaudejeu()
+
 
 def sauvegarde():
     fic=open("sauvegarde.txt", "w")
@@ -42,13 +48,18 @@ def sauvegarde():
 
 def charger_partie():
     fic=open("sauvegarde.txt", "r")
+    ligne=fic.readline()
+    i=0  #On commence tout en haut à gauche donc taquin[0][0], i et j sont = à 0
+    j=0  #On commence tout en haut à gauche donc taquin[0][0], i et j sont = à 0
     for ligne in fic:
-        taquin[i][j]= int(ligne)
-        j=j+1
-        if j==3:
-            j=0
+        taquin[i][j]=int(ligne)
+        j=j+1 # On avance d'une colonne à chaque fois jusqu'à la 4eme et dernière colonne.
+        if j==3: #Si on atteint la derniere colonne, on change de ligne en incrémentant de 1 la ligne i et en recommençant colonne par colonne. 
+            j=1
             i=i+1
-    pass
+    fic.close()
+    tableaudejeu()
+
 
 
 def annuler():
@@ -59,14 +70,55 @@ def aide():
     pass
 
 
+
+# Cette fontion dessine le tableau de jeu
+# Création des tuiles
+def tableaudejeu():
+    tuile=[None for i in range(17)] # 16 listes tuiles vides qu'on remplira avec le numero par la suite.
+    for i in range(4):
+        for j in range(4):
+            x=100*j # definit la position x de chaque carré, boucle.
+            y=100*i ## definit la position y de chaque carré, boucle.
+            debutcarre=(x,y)
+            fincarre= (x+100, y+100) #100 pixels chaque carré
+            milieucarre=(x+50, y+50) #Creer une variable qui represente la moitié du carré pour pouvoir y mettre le numero
+            carre=canvas.create_rectangle(debutcarre, fincarre, fill="gold")
+            numero=taquin[i][j]  
+            chiffre=canvas.create_text(milieucarre, text=numero, fill="black", font=POLICE) #on insère le numero à l'interieur de la tuile
+            tuile[numero]=(carre, chiffre) #création de la tuile par numero.
+
+    canvas.delete(carre) #permet de supprimer le dernier carré, le numero 16 dont nous avons pas besoin
+    canvas.delete(chiffre) #permet de supprimer le dernier carré, le numero 16 dont nous avons pas besoin
+
+
+
+
+###############################################################################################
 ###############################################################################################
 
 # programme principal
+
+taquin=[[1, 2, 3, 4],
+       [5, 6, 7, 8],
+       [9, 10, 11, 12],
+       [13, 14, 15, 16]]
+#Les numeros sur les tuiles suivront cette matrice. Matrice qui doit être melangée.
+
+
+#On gagne quand on arrivé au resultat ci-dessous.
+taquin_victoire=[[1, 2, 3, 4],
+                [5, 6, 7, 8],
+                [9, 10, 11, 12],
+                [13, 14, 15, 16]]
+
+###############################################################################################
+###############################################################################################
 
 # création des widgets
 racine = tk.Tk()
 canvas = tk.Canvas(racine, bg="black", width=LARGEUR, height=HAUTEUR)
 racine.title("Jeu du Taquin")
+tableaudejeu() #lance le jeu pas melangé au demarrage.
 
 bouton_fermer = tk.Button(racine, text="Fermer",command=fermer_partie)
 bouton_melanger = tk.Button(racine, text="Melanger",command=melanger)
@@ -87,43 +139,10 @@ canvas.grid(row = 0, column = 0, columnspan=2, sticky=tk.W+tk.E) #Tout le tablea
 racine.columnconfigure(1, minsize=200) #permet au canvas d'être centré avec les boutons
 racine.columnconfigure(0, minsize=200) #permet au canvas d'être centré avec les boutons
 
-###############################################################################################
-POLICE=('Arial', 30, 'bold')
-
-# création des tuiles
-
-taquin=[[1, 2, 3, 4],
-       [5, 6, 7, 8],
-       [9, 10, 11, 12],
-       [13, 14, 15, 16]]
- #Les numeros sur les tuiles suivront cette matrice.
 
 canvas.bind("<Button-1>",identification)
 
-tuile=[None for i in range(17)] #numero des tuiles commencera à 1 et non pas 0
-
-for i in range(4):
-    for j in range(4):
-        x=100*j # definit la position x de chaque carré, boucle.
-        y=100*i ## definit la position y de chaque carré, boucle.
-        debutcarre=(x,y)
-        fincarre= (x+100, y+100) #100 pixels chaque carré
-        milieucarre=(x+50, y+50) #Creer une variable qui represente la moitié du carré pour pouvoir y mettre le numero
-        carre=canvas.create_rectangle(debutcarre, fincarre, fill="gold")
-        numero=taquin[i][j]  
-        chiffre=canvas.create_text(milieucarre, text=numero, fill="black", font=POLICE) #on insère le numero à l'interieur de la tuile
-        tuile[numero]=(carre, chiffre) #création de la tuile par numero.
-
-canvas.delete(carre) #permet de supprimer le dernier carré, le numero 16 dont nous avons pas besoin
-canvas.delete(chiffre) #permet de supprimer le dernier carré, le numero 16 dont nous avons pas besoin
-
-
-#On gagne quand on arrivé au resultat ci-dessous.
-taquin_victoire=[[1, 2, 3, 4],
-                [5, 6, 7, 8],
-                [9, 10, 11, 12],
-                [13, 14, 15, 16]]
-
+###############################################################################################
 ###############################################################################################
 
 # déplacement des tuiles
