@@ -47,16 +47,14 @@ def sauvegarde():
     messagebox.showinfo("Sauvegarde", "Sauvegarde réussie.") 
 
 def charger_partie():
+    global taquin
     fic=open("sauvegarde.txt", "r")
-    ligne=fic.readline()
-    i=0  #On commence tout en haut à gauche donc taquin[0][0], i et j sont = à 0
-    j=0  #On commence tout en haut à gauche donc taquin[0][0], i et j sont = à 0
-    for ligne in fic:
-        taquin[i][j]=int(ligne)
-        j=j+1 # On avance d'une colonne à chaque fois jusqu'à la 4eme et dernière colonne.
-        if j==3: #Si on atteint la derniere colonne, on change de ligne en incrémentant de 1 la ligne i et en recommençant colonne par colonne. 
-            j=1
-            i=i+1
+    ligne=fic.readlines() #ligne devient une liste contenant chaque ligne du fichier.
+    l=0 #compte l'indice de la liste ligne
+    for i in range(4): 
+        for j in range(4):
+            taquin[i][j]=int(ligne[l]) #on remplace taquin[0][0] par le premier élément de la liste et ainsi de suite.
+            l=l+1 #on passe au prochain élément de la liste
     fic.close()
     tableaudejeu()
 
@@ -118,7 +116,7 @@ taquin_victoire=[[1, 2, 3, 4],
 racine = tk.Tk()
 canvas = tk.Canvas(racine, bg="black", width=LARGEUR, height=HAUTEUR)
 racine.title("Jeu du Taquin")
-tableaudejeu() #lance le jeu pas melangé au demarrage.
+tableaudejeu() #lance le jeu pas melangé au demarrage. 
 
 bouton_fermer = tk.Button(racine, text="Fermer",command=fermer_partie)
 bouton_melanger = tk.Button(racine, text="Melanger",command=melanger)
@@ -152,3 +150,5 @@ def mouvement():
 
 # boucle principale
 racine.mainloop()
+
+
