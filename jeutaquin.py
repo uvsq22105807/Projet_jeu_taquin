@@ -147,6 +147,12 @@ canvas.bind("<Button-1>",identification)
 def mouvement():
     pass
 
+def victoire():
+    if taquin == taquin_victoire:
+        print('teste')
+    else : 
+        None
+
 
 # boucle principale
 racine.mainloop()
