@@ -20,4 +20,4 @@ Sa théorie mathématique a été publiée par l’American Journal of mathemati
 
 En 1891, son invention fut revendiquée par Sam Loyd, au moment où le jeu connaissait un engouement considérable, tant aux États-Unis qu’en Europe. Il est composé de 15 petits carreaux numérotés de 1 à 15 qui glissent dans un cadre prévu pour 16. 
 
-Il consiste à remettre dans l’ordre les carreaux à partir d’une configuration initiale quelconque
+Il consiste à remettre dans l’ordre les carreaux à partir d’une configuration initiale quelconque.
