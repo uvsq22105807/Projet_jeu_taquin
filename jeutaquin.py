@@ -1,27 +1,70 @@
 import tkinter as tk  #librairie Tkinter
 import random #choisir un nombre aléatoirement
 from tkinter import messagebox #Ouvrir une pop-up avec une information
-from turtle import width 
+from turtle import width
+from unittest import case 
 
 ###############################################################################################
 
 # Constantes
 LARGEUR = 400 # Car chaque ligne a 4 cases de 100px chacune
 HAUTEUR = 400 # Car il y a 4 lignes et chaque ligne fait 100px
-mouvement = 0 # Défini, une fois fini, le nombre de mouvement effectué pour gagner.
+mouvement = 0 # Nombre de mouvements
 POLICE=('Arial', 30, 'bold') #Police d'écriture pour tout le jeu
 
 ###############################################################################################
 
-# Fonctions
+# Fonctions Jeu
 
 def identification(event):
     i=event.y//100 #On prends la cordonnée x et on divise par 100(taille de chaque tuile) on aura forcément un nombre compris entre 0 et 3
     j=event.x//100 #On prends la cordonnée y et on divise par 100(taille de chaque tuile) on aura forcément un nombre compris entre 0 et 3
     print("Ligne :", i, "Colonne :", j,"Tuile n° :", taquin[i][j]) #On va verifier dans taquin à quel numero ça correspond.
+    
+    deplacer()
+
+# déplacement des tuiles
+def deplacer():
+    global taquin, taquin_victoire, taquinprecedent,mouvement
+    if taquin == taquin_victoire:
+        messagebox.showinfo("Taquin","Bravo, tu as gagné!")
+        print("Tu as gagné en", mouvement, "coups.")
+    else : 
+
+        for i in range(4): 
+            for j in range(4):
+                taquinprecedent.append(taquin[i][j]) 
+        mouvement= mouvement+1
+
+
+
+# Cette fontion dessine le tableau de jeu
+# Création des tuiles
+def tableaudejeu():
+    tuile=[None for i in range(17)] # 16 listes tuiles vides qu'on remplira avec le numero par la suite.
+    for i in range(4):
+        for j in range(4):
+            x=100*j # definit la position x de chaque carré, boucle.
+            y=100*i ## definit la position y de chaque carré, boucle.
+            debutcarre=(x,y)
+            fincarre= (x+100, y+100) #100 pixels chaque carré
+            milieucarre=(x+50, y+50) #Creer une variable qui represente la moitié du carré pour pouvoir y mettre le numero
+            carre=canvas.create_rectangle(debutcarre, fincarre, fill="dodgerblue")
+            numero=taquin[i][j]  
+            chiffre=canvas.create_text(milieucarre, text=numero, fill="white", font=POLICE) #on insère le numero à l'interieur de la tuile
+            tuile[numero]=(carre, chiffre) #création de la tuile par numero.
+
+    canvas.delete(carre) #permet de supprimer le dernier carré, le numero 16 dont nous avons pas besoin
+    canvas.delete(chiffre) #permet de supprimer le dernier carré, le numero 16 dont nous avons pas besoin
+
+
+###############################################################################################
+
+# Fonctions des Boutons de l'interface graphique
 
 def fermer_partie():
     racine.destroy()
+
 
 def melanger():
     numeros=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
@@ -46,6 +89,7 @@ def sauvegarde():
     fic.close()
     messagebox.showinfo("Sauvegarde", "Sauvegarde réussie.") 
 
+
 def charger_partie():
     global taquin
     fic=open("sauvegarde.txt", "r")
@@ -59,38 +103,17 @@ def charger_partie():
     tableaudejeu() #Redessine le tableau avec la nouvelle matrice, actualise le tableau.
 
 
-
 def annuler():
     global taquin, taquinprecedent
     for i in range(4):
         for j in range(4):
             taquinprecedent[i][j]=taquin[i][j]
+            mouvement=mouvement-1
     tableaudejeu()  #Redessine le tableau avec la nouvelle matrice, actualise le tableau. 
     
 
 def aide():
     pass
-
-
-
-# Cette fontion dessine le tableau de jeu
-# Création des tuiles
-def tableaudejeu():
-    tuile=[None for i in range(17)] # 16 listes tuiles vides qu'on remplira avec le numero par la suite.
-    for i in range(4):
-        for j in range(4):
-            x=100*j # definit la position x de chaque carré, boucle.
-            y=100*i ## definit la position y de chaque carré, boucle.
-            debutcarre=(x,y)
-            fincarre= (x+100, y+100) #100 pixels chaque carré
-            milieucarre=(x+50, y+50) #Creer une variable qui represente la moitié du carré pour pouvoir y mettre le numero
-            carre=canvas.create_rectangle(debutcarre, fincarre, fill="gold")
-            numero=taquin[i][j]  
-            chiffre=canvas.create_text(milieucarre, text=numero, fill="black", font=POLICE) #on insère le numero à l'interieur de la tuile
-            tuile[numero]=(carre, chiffre) #création de la tuile par numero.
-
-    canvas.delete(carre) #permet de supprimer le dernier carré, le numero 16 dont nous avons pas besoin
-    canvas.delete(chiffre) #permet de supprimer le dernier carré, le numero 16 dont nous avons pas besoin
 
 
 
@@ -106,8 +129,10 @@ taquin=[[1, 2, 3, 4],
        [13, 14, 15, 16]]
 #Les numeros sur les tuiles suivront cette matrice. Matrice qui doit être melangée.
 
-taquinprecedent=[]
-# Matrice qui va s'actualiser à chaque coup pour pouvoir annuler le mouvement
+taquinprecedent=[None for x in range(100)] 
+#On crée 100 listes vides, taquinprecedent[mouvement] representera la matrice apres chaque coup.
+#mouvement sera le coup ou on est, mvmt-1 sera le coup précedent, pour pouvoir annuler le mouvement on remplace la matrice actuelle par la matrice precedente.
+#100 listes donc on pourra reculer 100 coups, annuler 100 mouvements.
 
 
 #On gagne quand on arrivé au resultat ci-dessous.
@@ -123,7 +148,7 @@ taquin_victoire=[[1, 2, 3, 4],
 racine = tk.Tk()
 canvas = tk.Canvas(racine, bg="black", width=LARGEUR, height=HAUTEUR)
 racine.title("Jeu du Taquin")
-tableaudejeu() #lance le jeu pas melangé au demarrage. 
+melanger() #lance le jeu melangé au demarrage.
 
 bouton_fermer = tk.Button(racine, text="Fermer",command=fermer_partie)
 bouton_melanger = tk.Button(racine, text="Melanger",command=melanger)
@@ -149,17 +174,6 @@ canvas.bind("<Button-1>",identification)
 
 ###############################################################################################
 ###############################################################################################
-
-# déplacement des tuiles
-def mouvement():
-    pass
-
-def victoire():
-    if taquin == taquin_victoire:
-        print('teste')
-    else : 
-        None
-
 
 # boucle principale
 racine.mainloop()

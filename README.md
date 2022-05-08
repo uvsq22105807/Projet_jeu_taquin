@@ -24,12 +24,13 @@ Il consiste à remettre dans l’ordre les carreaux à partir d’une configurat
 
 ## Comment jouer ?
 
-Une fois le code exécuté, le tableau ne sera pas mélangé et sera en position de victoire. Pour commencer la partie, il suffit alors d’appuyer sur le bouton mélanger.
+Pour jouer on utilise la souris, en appuyant sur la case souhaitée la tuile bougera si le mouvement est possible.
 
 À tout moment vous pouvez sauvegarder la partie en appuyant sur le bouton sauvegarder et reprendre la partie plus tard en appuyant sur le bouton charger.    
 
 Chaque étape et mouvement est enregistré donc si vous vous trompez vous pouvez annuler le mouvement que vous venez de faire en appuyant sur le bouton annuler mouvement.
 
-Pour jouer on utilise la souris, en appuyant sur la case souhaitée la tuile bougera si le mouvement est possible.
+Une fois que vous avez gagné, une pop-up s'ouvre vous indicant la victoire, vous pouvez appuyer sur "OK" et recommencer une nouvelle partie en appuyant sur "Melanger".
+
 
 
