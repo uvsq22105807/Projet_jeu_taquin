@@ -35,7 +35,7 @@ def melanger():
         x=random.randint(0,len(numeros)-1)
         taquin[3][j]=numeros[x]
         del numeros[x]
-    tableaudejeu()
+    tableaudejeu()  #Redessine le tableau avec la nouvelle matrice, actualise le tableau.
 
 
 def sauvegarde():
@@ -54,15 +54,19 @@ def charger_partie():
     for i in range(4): 
         for j in range(4):
             taquin[i][j]=int(ligne[l]) #on remplace taquin[0][0] par le premier élément de la liste et ainsi de suite.
-            l=l+1 #on passe au prochain élément de la liste
+            l=l+1 #on passe au prochain élément de la liste.
     fic.close()
-    tableaudejeu()
+    tableaudejeu() #Redessine le tableau avec la nouvelle matrice, actualise le tableau.
 
 
 
 def annuler():
-    mouvement = mouvement - 1
-    pass
+    global taquin, taquinprecedent
+    for i in range(4):
+        for j in range(4):
+            taquinprecedent[i][j]=taquin[i][j]
+    tableaudejeu()  #Redessine le tableau avec la nouvelle matrice, actualise le tableau. 
+    
 
 def aide():
     pass
@@ -101,6 +105,9 @@ taquin=[[1, 2, 3, 4],
        [9, 10, 11, 12],
        [13, 14, 15, 16]]
 #Les numeros sur les tuiles suivront cette matrice. Matrice qui doit être melangée.
+
+taquinprecedent=[]
+# Matrice qui va s'actualiser à chaque coup pour pouvoir annuler le mouvement
 
 
 #On gagne quand on arrivé au resultat ci-dessous.
