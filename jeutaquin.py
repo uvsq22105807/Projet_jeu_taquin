@@ -1,4 +1,5 @@
 from ast import Pass
+from inspect import modulesbyfile
 import tkinter as tk  #librairie Tkinter
 import random #choisir un nombre aléatoirement
 from tkinter import messagebox #Ouvrir une pop-up avec une information
@@ -53,7 +54,7 @@ def deplacer():
             for j in range(4):
                 taquinprecedent.append(taquin[i][j]) 
         mouvement= mouvement+1
-
+        print(mouvement)
 
 
 # Cette fontion dessine le tableau de jeu
@@ -134,9 +135,26 @@ def annuler():
     
 
 def aide():
-    pass
-
-
+    if mouvement < 15 :
+        messagebox.showinfo("Aide", "Je ne peu pas de donné d'aide pour le moment")
+    elif mouvement <25:
+        messagebox.showinfo("Aide", "la première ligne doit etre 1 2 3 4")
+        if mouvement >20 and mouvement <25:
+            messagebox.showinfo("Aide", "Si tu a du mal à aligné le 3 et 4, fais descendre le 1 et décale le 2 et 3 sur la gauche, fais monté le 4 déscend le chiffre que l'on veut pas et réaligne le 1 2 3")
+    elif mouvement <35:
+        messagebox.showinfo("Aide", "la deuxième ligne doit etre 5 6 7 8")
+        if mouvement >30 and mouvement <35:
+            messagebox.showinfo("Aide", "Si tu a du mal à aligné le 7 et 8, comme avant fais descendre le 5 et décale le 6 et 7 sur la gauche, fais monté le 8 déscend le chiffre que l'on veut pas et réaligne le 5 6 7")
+    elif mouvement <45:
+        messagebox.showinfo("Aide", "la troixième ligne doit etre 9 10 11 12")
+        if mouvement >40 and mouvement <45:
+            messagebox.showinfo("Aide","Faut que tu essaye d'avoir le 13 sur la derniere ligne à son emplacement avec la bonne position du 9")
+    elif mouvement <55:
+        messagebox.showinfo("Aide", "la dernière ligne doit etre 13 14 15")
+        if mouvement >50 and mouvement <55:
+            messagebox.showinfo("Aide"," Pour la dernière astuce après avoir appliqué mon conseil précédent faut que tu arrange bien tout")
+    elif mouvement >80:
+        messagebox.showinfo("Aide", "Je peux plus rien faire pour toi désolé.")
 
 
 ###############################################################################################
