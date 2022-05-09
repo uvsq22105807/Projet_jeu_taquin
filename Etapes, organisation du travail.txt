@@ -1,7 +1,8 @@
 1) Creer une grille avec les 15 pieces (réussi)
-2) Creer les mouvements (en cours)
+2) Creer les mouvements (Reussi)
 3) Bouton mélanger (Réussi)
 4) Determiner fin du jeu, victoire (Réussi)
-5) Savoir si on peu finir le jeu (bouton aide)
+5) Savoir si on peu finir le jeu (bouton aide) --> Differente approche car pas réussi
 6) Bouton sauvegarde, charger partie. (Réussi)
-7) Voir comment coder une IA (facultatif- que si on a le temps)
+
+7) Voir comment coder une IA (facultatif- que si on a le temps) == Pas réussi.
