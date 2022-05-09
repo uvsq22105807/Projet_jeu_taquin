@@ -88,8 +88,11 @@ def deplacer():
         messagebox.showinfo("Taquin","Bravo, tu as gagné!")
         messagebox.showinfo("Victoire","Veuillez appuyer sur le bouton Mélanger afin de rejouer une partie.")
         mouvement=mouvement+1 #Car le mouvement qui mene à la victoire compte aussi.
-    else :
-        taquinprecedent=taquin.copy()
+
+    else:
+        for i in range(4):
+            for j in range(4):
+                taquinprecedent.append(taquin[i][j])
         mouvement= mouvement+1
 
 
@@ -138,15 +141,16 @@ def charger_partie():
     fic.close()
     tableaudejeu() #Redessine le tableau avec la nouvelle matrice, actualise le tableau.
 
-####
+
 def annuler():
     global taquin, taquinprecedent,mouvement
     if mouvement>0:
-        for x in range(len(taquinprecedent)):   
-            for i in range(4):
-                for j in range(4):
-                    taquin[i][j]=int(taquinprecedent[x])
-        mouvement=mouvement-1
+        a=0 #compte l'indice de la liste ligne
+        for i in range(4): 
+            for j in range(4):
+                taquin[i][j]=int(taquinprecedent[a]) #on remplace taquin[0][0] par le premier élément de la liste et ainsi de suite.
+                a=a+1 #on passe au prochain élément de la liste.
+        tableaudejeu() #Redessine le tableau avec la nouvelle matrice, actualise le tableau.
     else:
         messagebox.showerror("Annuler Mouvement", "Vous n'avez pas de mouvement pouvant être annulé.")
     tableaudejeu()  #Redessine le tableau avec la nouvelle matrice, actualise le tableau.
@@ -176,11 +180,9 @@ taquin=[[1, 2, 3, 4],
        [13, 14, 15, 16]]
 #Les numeros sur les tuiles suivront cette matrice. Matrice qui est melangée à l'execution du code.
 
-taquinprecedent=[None for i in range(100)]
-
-#On crée 100 listes vides, taquinprecedent[mouvement] representera la matrice apres chaque coup.
+taquinprecedent=[]
 #mouvement sera le coup ou on est, mvmt-1 sera le coup précedent, pour pouvoir annuler le mouvement on remplace la matrice actuelle par la matrice precedente.
-#100 listes donc on pourra reculer 100 coups, annuler 100 mouvements.
+
 
 
 #On gagne quand on arrivé au resultat ci-dessous.
