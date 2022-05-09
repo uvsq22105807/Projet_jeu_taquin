@@ -177,8 +177,7 @@ taquin=[[1, 2, 3, 4],
 #Les numeros sur les tuiles suivront cette matrice. Matrice qui est melangée à l'execution du code.
 
 taquinprecedent=[None for i in range(100)]
-print(taquinprecedent)
-taquinprecedent[mouvement]=taquin[i][j]
+
 #On crée 100 listes vides, taquinprecedent[mouvement] representera la matrice apres chaque coup.
 #mouvement sera le coup ou on est, mvmt-1 sera le coup précedent, pour pouvoir annuler le mouvement on remplace la matrice actuelle par la matrice precedente.
 #100 listes donc on pourra reculer 100 coups, annuler 100 mouvements.
