@@ -34,7 +34,8 @@ Une fois que vous avez gagné, une pop-up s'ouvre vous indicant la victoire, vou
 
 Voici l'interface graphique:
 
-image.png
+<img width="304" alt="Interface graphique" src="https://user-images.githubusercontent.com/91261751/167343063-1378615e-692b-47df-8f5c-c2c2fdb68b01.png">
+
 
 ## Sources ?
 
