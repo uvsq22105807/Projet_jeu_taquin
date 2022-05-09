@@ -50,4 +50,3 @@ https://openclassrooms.com/fr/
 https://pythontutor.com/
 
 Ainsi que de quelques serveurs Discord d'aide informatique.
-
