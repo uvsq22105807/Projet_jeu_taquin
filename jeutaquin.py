@@ -83,15 +83,13 @@ j_vide=3 #carré vide est situé en j=3 taquin[3][3] #Sauf quand on charge une n
 
 # déplacement des tuiles
 def deplacer():
-    global taquin, taquin_victoire,mouvement
+    global taquin, taquin_victoire,mouvement,taquinprecedent
     if taquin == taquin_victoire:
         messagebox.showinfo("Taquin","Bravo, tu as gagné!")
         messagebox.showinfo("Victoire","Veuillez appuyer sur le bouton Mélanger afin de rejouer une partie.")
         mouvement=mouvement+1 #Car le mouvement qui mene à la victoire compte aussi.
-    else : 
-        for i in range(4):
-            for j in range(4):
-                taquinprecedent[mouvement]
+    else :
+        taquinprecedent=taquin.copy()
         mouvement= mouvement+1
 
 
@@ -144,38 +142,28 @@ def charger_partie():
 def annuler():
     global taquin, taquinprecedent,mouvement
     if mouvement>0:
+        for x in range(len(taquinprecedent)):   
+            for i in range(4):
+                for j in range(4):
+                    taquin[i][j]=int(taquinprecedent[x])
         mouvement=mouvement-1
-        for i in range(4):
-            for j in range(4):
-                pass
     else:
         messagebox.showerror("Annuler Mouvement", "Vous n'avez pas de mouvement pouvant être annulé.")
     tableaudejeu()  #Redessine le tableau avec la nouvelle matrice, actualise le tableau.
     
-####
-def aide():
-    pass
-    """if mouvement < 15 :
-        messagebox.showinfo("Aide", "Je ne peu pas de donné d'aide pour le moment")
-    elif mouvement <25:
-        messagebox.showinfo("Aide", "la première ligne doit etre 1 2 3 4")
-        if mouvement >20 and mouvement <25:
-            messagebox.showinfo("Aide", "Si tu a du mal à aligné le 3 et 4, fais descendre le 1 et décale le 2 et 3 sur la gauche, fais monté le 4 déscend le chiffre que l'on veut pas et réaligne le 1 2 3")
-    elif mouvement <35:
-        messagebox.showinfo("Aide", "la deuxième ligne doit etre 5 6 7 8")
-        if mouvement >30 and mouvement <35:
-            messagebox.showinfo("Aide", "Si tu a du mal à aligné le 7 et 8, comme avant fais descendre le 5 et décale le 6 et 7 sur la gauche, fais monté le 8 déscend le chiffre que l'on veut pas et réaligne le 5 6 7")
-    elif mouvement <45:
-        messagebox.showinfo("Aide", "la troixième ligne doit etre 9 10 11 12")
-        if mouvement >40 and mouvement <45:
-            messagebox.showinfo("Aide","Faut que tu essaye d'avoir le 13 sur la derniere ligne à son emplacement avec la bonne position du 9")
-    elif mouvement <55:
-        messagebox.showinfo("Aide", "la dernière ligne doit etre 13 14 15")
-        if mouvement >50 and mouvement <55:
-            messagebox.showinfo("Aide"," Pour la dernière astuce après avoir appliqué mon conseil précédent faut que tu arrange bien tout")
-    elif mouvement >80:
-        messagebox.showinfo("Aide", "Je peux plus rien faire pour toi désolé.")"""
 
+def aide():
+    if mouvement < 10 :
+        messagebox.showinfo("Aide", "Trop tôt! Essayez encore quelques coups.")
+    elif mouvement>11 and mouvement<35:
+            messagebox.showinfo("Aide", "Si vous avez des difficultés à aligner la tuile n°3 et n°4, essayez de descendre la n°1 et de décaler la n°2 ainsi que n°3 sur la gauche, faites monter la n°4 et descendez la tuile que l'on ne veut pas et réalignez les tuiles  n°1 n°2 n°3")
+    elif mouvement >36 and mouvement <55:
+            messagebox.showinfo("Aide", "Si vous avez des difficultés à aligner la tuile n°7 et n°8, essayez de descendre la n°5 et de décaler la n°6 ainsi que n°7 sur la gauche, faites monter la n°8 et descendez la tuile que l'on ne veut pas et réalignez les tuiles  n°5 n°6 n°7")
+    elif mouvement > 56 and mouvement <75:
+            messagebox.showinfo("Aide","Le but ici est d'avoir la tuile n°13 ainsi que la tuile n°9 au bon emplacement, sinon ça devient compliqué d'aligner le reste.")
+    elif mouvement >76:
+            messagebox.showinfo("Aide", "Vous n'avez plus d'aides.")
+     
 
 ###############################################################################################
 ###############################################################################################
@@ -189,7 +177,8 @@ taquin=[[1, 2, 3, 4],
 #Les numeros sur les tuiles suivront cette matrice. Matrice qui est melangée à l'execution du code.
 
 taquinprecedent=[None for i in range(100)]
-
+print(taquinprecedent)
+taquinprecedent[mouvement]=taquin[i][j]
 #On crée 100 listes vides, taquinprecedent[mouvement] representera la matrice apres chaque coup.
 #mouvement sera le coup ou on est, mvmt-1 sera le coup précedent, pour pouvoir annuler le mouvement on remplace la matrice actuelle par la matrice precedente.
 #100 listes donc on pourra reculer 100 coups, annuler 100 mouvements.
