@@ -1,10 +1,7 @@
-from ast import Pass
-from inspect import modulesbyfile
 import tkinter as tk  #librairie Tkinter
 import random #choisir un nombre aléatoirement
 from tkinter import messagebox #Ouvrir une pop-up avec une information
-from turtle import width
-from unittest import case 
+
 
 ###############################################################################################
 
@@ -18,49 +15,11 @@ POLICE=('Arial', 30, 'bold') #Police d'écriture pour tout le jeu
 
 # Fonctions Jeu
 
-def identification(event):
-    i=event.y//100 #On prends la cordonnée x et on divise par 100(taille de chaque tuile) on aura forcément un nombre compris entre 0 et 3
-    j=event.x//100 #On prends la cordonnée y et on divise par 100(taille de chaque tuile) on aura forcément un nombre compris entre 0 et 3
-    i_vide=3 #carré vide est situé en i=3 taquin[3][3]
-    j_vide=3 #carré vide est situé en j=3 taquin[3][3]
-    print("Ligne :", i, "Colonne :", j,"Tuile n° :", taquin[i][j]) #On va verifier dans taquin à quel numero ça correspond.
-    if i-1==i_vide and j==j_vide:
-        taquin[i][j],taquin[i_vide][j_vide]=(taquin[i_vide][j_vide],taquin[i][j])
-        deplacer()
-        tableaudejeu()
-    elif i+1==i_vide and j==j_vide:
-        taquin[i][j],taquin[i_vide][j_vide]=(taquin[i_vide][j_vide],taquin[i][j])
-        deplacer()
-        tableaudejeu()
-    elif j-1==j_vide and i==i_vide:
-        taquin[i][j],taquin[i_vide][j_vide]=(taquin[i_vide][j_vide],taquin[i][j])
-        deplacer()
-        tableaudejeu()
-    elif j+1==j_vide and i==i_vide:
-        taquin[i][j],taquin[i_vide][j_vide]=(taquin[i_vide][j_vide],taquin[i][j])
-        deplacer()
-        tableaudejeu()
-    
-
-
-# déplacement des tuiles
-def deplacer():
-    global taquin, taquin_victoire, taquinprecedent,mouvement
-    if taquin == taquin_victoire:
-        messagebox.showinfo("Taquin","Bravo, tu as gagné!")
-        print("Tu as gagné en", mouvement, "coups.")
-    else : 
-        for i in range(4): 
-            for j in range(4):
-                taquinprecedent.append(taquin[i][j]) 
-        mouvement= mouvement+1
-        print(mouvement)
-
-
 # Cette fontion dessine le tableau de jeu
 # Création des tuiles
+tuile=[None for i in range(17)] # 16 listes tuiles vides qu'on remplira avec le numero par la suite.
 def tableaudejeu():
-    tuile=[None for i in range(17)] # 16 listes tuiles vides qu'on remplira avec le numero par la suite.
+    global taquin
     for i in range(4):
         for j in range(4):
             x=100*j # definit la position x de chaque carré, boucle.
@@ -68,13 +27,74 @@ def tableaudejeu():
             debutcarre=(x,y)
             fincarre= (x+100, y+100) #100 pixels chaque carré
             milieucarre=(x+50, y+50) #Creer une variable qui represente la moitié du carré pour pouvoir y mettre le numero
-            carre=canvas.create_rectangle(debutcarre, fincarre, fill="dodgerblue")
+            carre=canvas.create_rectangle(debutcarre, fincarre, fill="blue3")
             numero=taquin[i][j]  
-            chiffre=canvas.create_text(milieucarre, text=numero, fill="white", font=POLICE) #on insère le numero à l'interieur de la tuile
+            chiffre=canvas.create_text(milieucarre, text=numero, fill="lightblue3", font=POLICE) #on insère le numero à l'interieur de la tuile
             tuile[numero]=(carre, chiffre) #création de la tuile par numero.
-
+     
     canvas.delete(carre) #permet de supprimer le dernier carré, le numero 16 dont nous avons pas besoin
     canvas.delete(chiffre) #permet de supprimer le dernier carré, le numero 16 dont nous avons pas besoin
+
+
+def identification(event):
+    global i_vide,j_vide,taquin
+    i=event.y//100 #On prends la cordonnée x et on divise par 100(taille de chaque tuile) on aura forcément un nombre compris entre 0 et 3
+    j=event.x//100 #On prends la cordonnée y et on divise par 100(taille de chaque tuile) on aura forcément un nombre compris entre 0 et 3
+    print("Ligne :", i, "Colonne :", j,"Tuile n° :", taquin[i][j]) #On va verifier dans taquin à quel numero ça correspond.
+    numero=taquin[i][j]
+    (carre,chiffre)=tuile[numero]
+    
+    if i-1==i_vide and j==j_vide: #On verifie si au dessus c'est le carré noir
+       taquin[i][j],taquin[i_vide][j_vide]=taquin[i_vide][j_vide],taquin[i][j] #On actualise la matrice en echangeant les valeurs de la matrice qui correspond au changement qu'on vient de faire.
+       canvas.move(carre, 0, -100) #On change la partie graphique maintenant en deplaçant le carré et le chiffre.
+       canvas.move(chiffre, 0, -100)
+       i_vide=i #La nouvelle case vide sera celle ou on a appuyé au debut
+       j_vide=j #La nouvelle case vide sera celle ou on a appuyé au debut
+       deplacer() #Fontion qui verifie si on a gagné et qui enregistre le mouvement.
+
+    elif i+1==i_vide and j==j_vide: #On verifie si en dessous c'est le carré noir
+        taquin[i][j],taquin[i_vide][j_vide]=taquin[i_vide][j_vide],taquin[i][j]
+        canvas.move(carre, 0, 100)
+        canvas.move(chiffre, 0, 100)
+        i_vide=i
+        j_vide=j
+        deplacer()
+
+    elif j-1==j_vide and i==i_vide: #On verifie si à gauche c'est le carré noir
+        taquin[i][j],taquin[i_vide][j_vide]=taquin[i_vide][j_vide],taquin[i][j]
+        canvas.move(carre, -100, 0)
+        canvas.move(chiffre, -100, 0)
+        i_vide=i
+        j_vide=j
+        deplacer()
+
+    elif j+1==j_vide and i==i_vide: #On verifie si à droite c'est le carré noir
+        taquin[i][j],taquin[i_vide][j_vide]=taquin[i_vide][j_vide],taquin[i][j]
+        canvas.move(carre, 100, 0)
+        canvas.move(chiffre, 100, 0)
+        i_vide=i
+        j_vide=j
+        deplacer()
+    else:
+        None
+
+        
+i_vide=3 #carré vide est situé en i=3 taquin[3][3] #Hors la def pour pas redevenir 3 à chaque fois qu'on recommence
+j_vide=3 #carré vide est situé en j=3 taquin[3][3] #Hors la def pour pas redevenir 3 à chaque fois qu'on recommence
+
+
+# déplacement des tuiles
+def deplacer():
+    global taquin, taquin_victoire,mouvement
+    if taquin == taquin_victoire:
+        messagebox.showinfo("Taquin","Bravo, tu as gagné!")
+        mouvement=mouvement+1 #Car le mouvement qui mene à la victoire compte aussi.
+        print("Tu as gagné en", mouvement, "coups.")
+    else : 
+        for i in range(4): 
+            for j in range(4):
+                taquinprecedent[i][j]=taquin[i][j]
+        mouvement= mouvement+1
 
 
 ###############################################################################################
@@ -86,8 +106,9 @@ def fermer_partie():
 
 
 def melanger():
-    numeros=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
     global taquin
+    taquin[3][3]=16 #On place le carré vide en bas à droite.
+    numeros=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
     for i in range(3): #Melange les 4 colonnes des 3 premières lignes de la matrice
         for j in range(4):
             x=random.randint(0,len(numeros)-1)
@@ -121,7 +142,7 @@ def charger_partie():
     fic.close()
     tableaudejeu() #Redessine le tableau avec la nouvelle matrice, actualise le tableau.
 
-
+####
 def annuler():
     global taquin, taquinprecedent,mouvement
     if mouvement>0:
@@ -133,9 +154,10 @@ def annuler():
         messagebox.showerror("Annuler Mouvement", "Vous n'avez pas de mouvement pouvant être annulé.")
     tableaudejeu()  #Redessine le tableau avec la nouvelle matrice, actualise le tableau. 
     
-
+####
 def aide():
-    if mouvement < 15 :
+    pass
+    """if mouvement < 15 :
         messagebox.showinfo("Aide", "Je ne peu pas de donné d'aide pour le moment")
     elif mouvement <25:
         messagebox.showinfo("Aide", "la première ligne doit etre 1 2 3 4")
@@ -154,7 +176,7 @@ def aide():
         if mouvement >50 and mouvement <55:
             messagebox.showinfo("Aide"," Pour la dernière astuce après avoir appliqué mon conseil précédent faut que tu arrange bien tout")
     elif mouvement >80:
-        messagebox.showinfo("Aide", "Je peux plus rien faire pour toi désolé.")
+        messagebox.showinfo("Aide", "Je peux plus rien faire pour toi désolé.")"""
 
 
 ###############################################################################################
@@ -168,7 +190,7 @@ taquin=[[1, 2, 3, 4],
        [13, 14, 15, 16]]
 #Les numeros sur les tuiles suivront cette matrice. Matrice qui est melangée à l'execution du code.
 
-taquinprecedent=[None for x in range(100)] 
+taquinprecedent=[] 
 #On crée 100 listes vides, taquinprecedent[mouvement] representera la matrice apres chaque coup.
 #mouvement sera le coup ou on est, mvmt-1 sera le coup précedent, pour pouvoir annuler le mouvement on remplace la matrice actuelle par la matrice precedente.
 #100 listes donc on pourra reculer 100 coups, annuler 100 mouvements.
