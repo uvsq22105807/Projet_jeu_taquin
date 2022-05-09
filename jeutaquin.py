@@ -19,7 +19,7 @@ POLICE=('Arial', 30, 'bold') #Police d'écriture pour tout le jeu
 # Création des tuiles
 tuile=[None for i in range(17)] # 16 listes tuiles vides qu'on remplira avec le numero par la suite.
 def tableaudejeu():
-    global taquin
+    global taquin,i_vide,j_vide
     for i in range(4):
         for j in range(4):
             x=100*j # definit la position x de chaque carré, boucle.
@@ -27,73 +27,73 @@ def tableaudejeu():
             debutcarre=(x,y)
             fincarre= (x+100, y+100) #100 pixels chaque carré
             milieucarre=(x+50, y+50) #Creer une variable qui represente la moitié du carré pour pouvoir y mettre le numero
-            carre=canvas.create_rectangle(debutcarre, fincarre, fill="blue3")
-            numero=taquin[i][j]  
-            chiffre=canvas.create_text(milieucarre, text=numero, fill="lightblue3", font=POLICE) #on insère le numero à l'interieur de la tuile
-            tuile[numero]=(carre, chiffre) #création de la tuile par numero.
-     
-    canvas.delete(carre) #permet de supprimer le dernier carré, le numero 16 dont nous avons pas besoin
-    canvas.delete(chiffre) #permet de supprimer le dernier carré, le numero 16 dont nous avons pas besoin
+            numero=taquin[i][j]
+            if numero==16: #Lorsqu'on arrive à 16 dans la matrice on dessine un carré noir.
+                carre=canvas.create_rectangle(debutcarre, fincarre, fill="black")
+                chiffre=canvas.create_text(milieucarre, text=numero, fill="black", font=POLICE)
+                tuile[numero]=(carre, chiffre)
+                i_vide=i
+                j_vide=j
+            else: #Sinon on crée un carré normal
+                carre=canvas.create_rectangle(debutcarre, fincarre, fill="blue3")
+                chiffre=canvas.create_text(milieucarre, text=numero, fill="lightblue3", font=POLICE) #on insère le numero à l'interieur de la tuile
+                tuile[numero]=(carre, chiffre) #création de la tuile par numero.
+
+    
 
 
 def identification(event):
     global i_vide,j_vide,taquin
     i=event.y//100 #On prends la cordonnée x et on divise par 100(taille de chaque tuile) on aura forcément un nombre compris entre 0 et 3
     j=event.x//100 #On prends la cordonnée y et on divise par 100(taille de chaque tuile) on aura forcément un nombre compris entre 0 et 3
-    print("Ligne :", i, "Colonne :", j,"Tuile n° :", taquin[i][j]) #On va verifier dans taquin à quel numero ça correspond.
-    numero=taquin[i][j]
-    (carre,chiffre)=tuile[numero]
-    
-    if i-1==i_vide and j==j_vide: #On verifie si au dessus c'est le carré noir
-       taquin[i][j],taquin[i_vide][j_vide]=taquin[i_vide][j_vide],taquin[i][j] #On actualise la matrice en echangeant les valeurs de la matrice qui correspond au changement qu'on vient de faire.
-       canvas.move(carre, 0, -100) #On change la partie graphique maintenant en deplaçant le carré et le chiffre.
-       canvas.move(chiffre, 0, -100)
-       i_vide=i #La nouvelle case vide sera celle ou on a appuyé au debut
-       j_vide=j #La nouvelle case vide sera celle ou on a appuyé au debut
-       deplacer() #Fontion qui verifie si on a gagné et qui enregistre le mouvement.
+    #print("Ligne :", i, "Colonne :", j,"Tuile n° :", taquin[i][j]) #On va verifier dans taquin à quel numero ça correspond.
 
-    elif i+1==i_vide and j==j_vide: #On verifie si en dessous c'est le carré noir
-        taquin[i][j],taquin[i_vide][j_vide]=taquin[i_vide][j_vide],taquin[i][j]
-        canvas.move(carre, 0, 100)
-        canvas.move(chiffre, 0, 100)
-        i_vide=i
-        j_vide=j
-        deplacer()
+    if taquin[i][j]:
+        numero=taquin[i][j]
+        (carre,chiffre)=tuile[numero]
+        #Si possible, on déplace.
+        if i-1==i_vide and j==j_vide: #On verifie si au dessus c'est le carré noir
+           canvas.move(carre, 0, -100) #On change la partie graphique maintenant en deplaçant le carré et le chiffre.
+           canvas.move(chiffre, 0, -100)
 
-    elif j-1==j_vide and i==i_vide: #On verifie si à gauche c'est le carré noir
-        taquin[i][j],taquin[i_vide][j_vide]=taquin[i_vide][j_vide],taquin[i][j]
-        canvas.move(carre, -100, 0)
-        canvas.move(chiffre, -100, 0)
-        i_vide=i
-        j_vide=j
-        deplacer()
+        elif i+1==i_vide and j==j_vide: #On verifie si en dessous c'est le carré noir
+            canvas.move(carre, 0, 100)
+            canvas.move(chiffre, 0, 100)
 
-    elif j+1==j_vide and i==i_vide: #On verifie si à droite c'est le carré noir
-        taquin[i][j],taquin[i_vide][j_vide]=taquin[i_vide][j_vide],taquin[i][j]
-        canvas.move(carre, 100, 0)
-        canvas.move(chiffre, 100, 0)
-        i_vide=i
-        j_vide=j
-        deplacer()
-    else:
-        None
+        elif j-1==j_vide and i==i_vide: #On verifie si à gauche c'est le carré noir
+            canvas.move(carre, -100, 0)
+            canvas.move(chiffre, -100, 0)
 
+        elif j+1==j_vide and i==i_vide: #On verifie si à droite c'est le carré noir
+            canvas.move(carre, 100, 0)
+            canvas.move(chiffre, 100, 0)
         
-i_vide=3 #carré vide est situé en i=3 taquin[3][3] #Hors la def pour pas redevenir 3 à chaque fois qu'on recommence
-j_vide=3 #carré vide est situé en j=3 taquin[3][3] #Hors la def pour pas redevenir 3 à chaque fois qu'on recommence
+        else:
+            return
+        taquin[i][j],taquin[i_vide][j_vide]=taquin[i_vide][j_vide],taquin[i][j] #On actualise la matrice en echangeant les valeurs de la matrice qui correspond au changement qu'on vient de faire.
+        i_vide=i #La nouvelle case vide sera celle ou on a appuyé au debut
+        j_vide=j #La nouvelle case vide sera celle ou on a appuyé au debut
+        tableaudejeu() #Redessine le tableau avec la nouvelle matrice, actualise le tableau. Resout probleme case vide en bas à droite meme apres deplacement.
+        deplacer() #Fontion qui verifie si on a gagné et qui enregistre le mouvement.
+
+i_vide=3 #carré vide est situé en i=3 taquin[3][3] #Sauf qu'on charge une nouvelle partie, valeurs seront actualisées par carrevide()
+j_vide=3 #carré vide est situé en j=3 taquin[3][3] #Sauf qu'on charge une nouvelle partie, valeurs seront actualisées par carrevide()
 
 
 # déplacement des tuiles
 def deplacer():
     global taquin, taquin_victoire,mouvement
+    m=0
     if taquin == taquin_victoire:
         messagebox.showinfo("Taquin","Bravo, tu as gagné!")
+        messagebox.showinfo("Victoire","Veuillez appuyer sur le bouton Mélanger afin de rejouer une partie.")
         mouvement=mouvement+1 #Car le mouvement qui mene à la victoire compte aussi.
-        print("Tu as gagné en", mouvement, "coups.")
     else : 
         for i in range(4): 
             for j in range(4):
-                taquinprecedent[i][j]=taquin[i][j]
+                m=taquin[i][j]
+                taquinprecedent[i][j]=m
+                print(taquinprecedent)
         mouvement= mouvement+1
 
 

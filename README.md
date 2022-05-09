@@ -32,5 +32,21 @@ Chaque étape et mouvement est enregistré donc si vous vous trompez vous pouvez
 
 Une fois que vous avez gagné, une pop-up s'ouvre vous indicant la victoire, vous pouvez appuyer sur "OK" et recommencer une nouvelle partie en appuyant sur "Melanger".
 
+Voici l'interface graphique:
 
+image.png
+
+## Sources ?
+
+Pour la réalisation de ce projet nous nous sommes ispirés et aidé d'internet, notament des sites suivants:
+
+http://pascal.ortiz.free.fr/contents/tkinter/projets_tkinter/taquin/taquin.html
+
+https://stackoverflow.com/
+
+https://openclassrooms.com/fr/
+
+https://pythontutor.com/
+
+Ainsi que de quelques serveurs Discord d'aide informatique.
 
