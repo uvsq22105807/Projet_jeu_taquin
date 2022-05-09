@@ -26,7 +26,7 @@ def tableaudejeu():
             y=100*i ## definit la position y de chaque carré, boucle.
             debutcarre=(x,y)
             fincarre= (x+100, y+100) #100 pixels chaque carré
-            milieucarre=(x+50, y+50) #Creer une variable qui represente la moitié du carré pour pouvoir y mettre le numero
+            milieucarre=(x+50, y+50) #Creer une variable qui represente la moitié du carré pour pouvoir y mettre le numero, centré.
             numero=taquin[i][j]
             if numero==16: #Lorsqu'on arrive à 16 dans la matrice on dessine un carré noir.
                 carre=canvas.create_rectangle(debutcarre, fincarre, fill="black")
@@ -70,30 +70,28 @@ def identification(event):
         
         else:
             return
+
         taquin[i][j],taquin[i_vide][j_vide]=taquin[i_vide][j_vide],taquin[i][j] #On actualise la matrice en echangeant les valeurs de la matrice qui correspond au changement qu'on vient de faire.
-        i_vide=i #La nouvelle case vide sera celle ou on a appuyé au debut
-        j_vide=j #La nouvelle case vide sera celle ou on a appuyé au debut
+        i_vide=i #La nouvelle case vide sera celle ou on a appuyé au debut, car apres le deplacement c'est elle qui devient vide.
+        j_vide=j #La nouvelle case vide sera celle ou on a appuyé au debut, car apres le deplacement c'est elle qui devient vide.
         tableaudejeu() #Redessine le tableau avec la nouvelle matrice, actualise le tableau. Resout probleme case vide en bas à droite meme apres deplacement.
         deplacer() #Fontion qui verifie si on a gagné et qui enregistre le mouvement.
 
-i_vide=3 #carré vide est situé en i=3 taquin[3][3] #Sauf qu'on charge une nouvelle partie, valeurs seront actualisées par carrevide()
-j_vide=3 #carré vide est situé en j=3 taquin[3][3] #Sauf qu'on charge une nouvelle partie, valeurs seront actualisées par carrevide()
+i_vide=3 #carré vide est situé en i=3 taquin[3][3] #Sauf quand on charge une nouvelle partie, valeurs seront actualisées par tableaujeu() - l.35
+j_vide=3 #carré vide est situé en j=3 taquin[3][3] #Sauf quand on charge une nouvelle partie, valeurs seront actualisées par tableaujeu() - L.36
 
 
 # déplacement des tuiles
 def deplacer():
     global taquin, taquin_victoire,mouvement
-    m=0
     if taquin == taquin_victoire:
         messagebox.showinfo("Taquin","Bravo, tu as gagné!")
         messagebox.showinfo("Victoire","Veuillez appuyer sur le bouton Mélanger afin de rejouer une partie.")
         mouvement=mouvement+1 #Car le mouvement qui mene à la victoire compte aussi.
     else : 
-        for i in range(4): 
+        for i in range(4):
             for j in range(4):
-                m=taquin[i][j]
-                taquinprecedent[i][j]=m
-                print(taquinprecedent)
+                taquinprecedent[mouvement]
         mouvement= mouvement+1
 
 
@@ -146,13 +144,13 @@ def charger_partie():
 def annuler():
     global taquin, taquinprecedent,mouvement
     if mouvement>0:
+        mouvement=mouvement-1
         for i in range(4):
             for j in range(4):
-                taquinprecedent[i][j]=taquin[i][j]
-                mouvement=mouvement-1
+                pass
     else:
         messagebox.showerror("Annuler Mouvement", "Vous n'avez pas de mouvement pouvant être annulé.")
-    tableaudejeu()  #Redessine le tableau avec la nouvelle matrice, actualise le tableau. 
+    tableaudejeu()  #Redessine le tableau avec la nouvelle matrice, actualise le tableau.
     
 ####
 def aide():
@@ -190,7 +188,8 @@ taquin=[[1, 2, 3, 4],
        [13, 14, 15, 16]]
 #Les numeros sur les tuiles suivront cette matrice. Matrice qui est melangée à l'execution du code.
 
-taquinprecedent=[] 
+taquinprecedent=[None for i in range(100)]
+
 #On crée 100 listes vides, taquinprecedent[mouvement] representera la matrice apres chaque coup.
 #mouvement sera le coup ou on est, mvmt-1 sera le coup précedent, pour pouvoir annuler le mouvement on remplace la matrice actuelle par la matrice precedente.
 #100 listes donc on pourra reculer 100 coups, annuler 100 mouvements.
