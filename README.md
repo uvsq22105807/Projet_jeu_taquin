@@ -39,7 +39,7 @@ Voici l'interface graphique:
 
 ## Sources ?
 
-Pour la réalisation de ce projet nous nous sommes ispirés et aidé d'internet, notament des sites suivants:
+Pour la réalisation de ce projet nous nous sommes ispirés et aidés d'internet, notament des sites suivants:
 
 http://pascal.ortiz.free.fr/contents/tkinter/projets_tkinter/taquin/taquin.html
 
